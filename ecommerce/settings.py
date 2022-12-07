@@ -26,9 +26,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    # === CREATED APPS === #
     'category',
     'accounts',
     'store',
+    'carts',
 ]
 
 MIDDLEWARE = [

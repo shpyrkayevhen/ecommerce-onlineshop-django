@@ -1,4 +1,4 @@
-from django.core.validators import MinValueValidator, MaxValueValidator
+from django.core.validators import MinValueValidator
 from category.models import Category
 from django.db import models
 
@@ -17,7 +17,7 @@ class Product(models.Model):
     modified_date = models.DateField(auto_now=True)
 
     # === NAME REPRESENTATION INSIDE ADMIN === # 
-    def __str__(self):
+    def __str__(self) -> str:
         return str(self.product_name)
     
 
