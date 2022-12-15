@@ -3,10 +3,10 @@ from django.contrib import admin
 
 # === REGISTER MODELS === #
 @admin.register(Cart)
-class CategoryAdmin(admin.ModelAdmin):
-    pass
+class CartAdmin(admin.ModelAdmin):
+    list_display = ['cart_id', 'date_added']
 
 
 @admin.register(CartItem)
-class CategoryAdmin(admin.ModelAdmin):
-    pass
+class CartItemAdmin(admin.ModelAdmin):
+    list_display = ['product', 'cart', 'quantity', 'is_active']

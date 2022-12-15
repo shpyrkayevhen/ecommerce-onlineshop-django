@@ -20,11 +20,40 @@ class Product(models.Model):
     def __str__(self) -> str:
         return str(self.product_name)
     
-
-    
     # === URL FOR GETTING SINGLE PRODUCT === #
     # from django.urls import reverse
     # def get_url(self):
     #     return reverse('product-detail/', args=[self.category.slug, self.slug])
 
     # But I always use: "{% url 'product_detail' product.category.slug product.slug %}"
+
+
+
+# === FILTER OUR QUERYSET WHICH WE WILL APPLY TO VARIATION MODEL === #
+class VariationManager(models.Manager):
+    
+    def colors(self):
+        return super(VariationManager, self).filter(variation_category='color', is_active=True)
+
+    def sizes(self):
+        return super(VariationManager, self).filter(variation_category='size', is_active=True)
+
+
+# === VARIATION SIZE AND COLOR === #
+variation_category_choise = (
+    ('color', 'color'),
+    ('size', 'size'),
+)
+
+class Variation(models.Model):
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    variation_category = models.CharField(max_length=100, choices=variation_category_choise)
+    variation_value = models.CharField(max_length=100)
+    is_active = models.BooleanField(default=True)
+    created_date = models.DateField(auto_now_add=True)
+
+    objects = VariationManager()
+
+    # === NAME REPRESENTATION INSIDE ADMIN === # 
+    def __str__(self) -> str:
+        return str(self.variation_value)
